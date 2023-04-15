@@ -1,4 +1,4 @@
-package khamzin.springproject.SocksApplication.util;
+package khamzin.springproject.SocksApplication.util.exceptions;
 
 public class SocksException extends RuntimeException {
     public SocksException(String message) {

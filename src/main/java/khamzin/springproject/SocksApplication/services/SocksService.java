@@ -2,8 +2,9 @@ package khamzin.springproject.SocksApplication.services;
 
 import khamzin.springproject.SocksApplication.models.Sock;
 import khamzin.springproject.SocksApplication.repositories.SockRepository;
-import khamzin.springproject.SocksApplication.util.SocksException;
-import org.springframework.beans.factory.annotation.Autowired;
+import khamzin.springproject.SocksApplication.util.exceptions.SocksException;
+import khamzin.springproject.SocksApplication.util.exceptions.SocksNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,13 +14,9 @@ import java.util.stream.IntStream;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class SocksService {
     private final SockRepository sockRepository;
-
-    @Autowired
-    public SocksService(SockRepository sockRepository) {
-        this.sockRepository = sockRepository;
-    }
 
     public List<Sock> findAllByColorAndCottonPartIsGreaterThan(String color, int cottonPart) {
         return sockRepository.findAllByColorAndCottonPartIsGreaterThan(color, cottonPart);
@@ -47,6 +44,9 @@ public class SocksService {
     @Transactional
     public void removeAll(Sock sock, int quantity) {
         List<Sock> socksToRemove = sockRepository.findAllByColorAndCottonPart(sock.getColor(), sock.getCottonPart());
+        if (socksToRemove.isEmpty())
+            throw new SocksNotFoundException("No such socks at the storage");
+
         socksToRemove.removeAll(socksToRemove.subList(quantity, socksToRemove.size()));
 
         sockRepository.deleteAll(socksToRemove);

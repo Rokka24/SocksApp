@@ -1,4 +1,4 @@
-package khamzin.springproject.SocksApplication.util;
+package khamzin.springproject.SocksApplication.util.exceptions;
 
 import lombok.Data;
 import org.springframework.validation.BindingResult;

@@ -1,4 +1,4 @@
-package khamzin.springproject.SocksApplication.util;
+package khamzin.springproject.SocksApplication.util.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

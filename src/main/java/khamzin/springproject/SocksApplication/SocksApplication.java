@@ -16,5 +16,4 @@ public class SocksApplication {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-
 }
